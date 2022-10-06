@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-  $('#translate').keyup( function() {
+  $('#translate').on("input", function() {
   var text = $('#source').val();
 	var detect = $('#input-lang').val();
 	var languageSource;
