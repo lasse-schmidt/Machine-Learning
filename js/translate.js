@@ -6,41 +6,40 @@ $( document ).ready(function() {
 	var languageTarget = $('#output-lang').val();
 
   if(detect == "auto"){
-
-	var settings = {
-  "url": "https://translation.googleapis.com/language/translate/v2/detect?key=AIzaSyAgw3zLLKYUYnZ2ARLTjmfvMLZC8g7zSNQ",
-  "method": "POST",
-  "timeout": 0,
-  "headers": {
-    "Content-Type": "application/json"
-  },
-  "data": JSON.stringify({
-    "q": text
-  }),
-};
-
-$.ajax(settings).done(function (response) {
-	languageSource = response.data.detections[0].language;
     var settings = {
-      "url": "https://translation.googleapis.com/language/translate/v2?key=AIzaSyDcROAFuRkNZwGXyvbIyCMSuk1w_rXWa2Q",
+      "url": "https://translation.googleapis.com/language/translate/v2/detect?key=AIzaSyAgw3zLLKYUYnZ2ARLTjmfvMLZC8g7zSNQ",
       "method": "POST",
       "timeout": 0,
       "headers": {
         "Content-Type": "application/json"
       },
       "data": JSON.stringify({
+      "q": text
+      }),
+    };
+
+    $.ajax(settings).done(function (response) {
+      languageSource = response.data.detections[0].language;
+      var settings = {
+        "url": "https://translation.googleapis.com/language/translate/v2?key=AIzaSyDcROAFuRkNZwGXyvbIyCMSuk1w_rXWa2Q",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+        "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({
         "q": text,
         "source": languageSource,
         "target": languageTarget,
         "format": "text"
-      }),
-    };
+        }),
+      };
 
-    $.ajax(settings).done(function (tanslate) {
-      $('#target').val('');
-      $("#target").val($("#target").val() + tanslate.data.translations[0].translatedText);
+      $.ajax(settings).done(function (tanslate) {
+        $('#target').val('');
+        $("#target").val($("#target").val() + tanslate.data.translations[0].translatedText);
+      });
     });
-   });
  }else if(detect == languageTarget){
    $('#target').val('');
    $("#target").val(text);

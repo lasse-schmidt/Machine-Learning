@@ -107,6 +107,7 @@ form > div select{
   font-size: 16px;
   border-color: #777;
   margin: 0;
+  cursor: pointer;
 }
 
 form > div textarea{
